@@ -3,6 +3,11 @@ import type { Note, NoteTag } from "../types/note";
 
 const myKey = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
 
+const nextServer = axios.create({
+  baseURL: 'http://localhost:3000/api',
+  withCredentials: true, // дозволяє axios працювати з cookie
+});
+
 
 export interface FetchNotesParams {
     search?: string;
@@ -33,8 +38,8 @@ export const fetchNotes = async ({ search, page = 1, perPage=12, tag}:FetchNotes
             Authorization: `Bearer ${myKey}`
         },
     }
-    const response = await axios.get<FetchNotesResponse>(
-        'https://notehub-public.goit.study/api/notes',
+    const response = await nextServer.get<FetchNotesResponse>(
+        '/notes',
          config
     );
 
@@ -63,8 +68,8 @@ export const createNote = async (note: {
 
 
 
-    const response = await axios.post<Note>(
-        'https://notehub-public.goit.study/api/notes',
+    const response = await nextServer.post<Note>(
+        '/notes',
         note,
          config
     );
@@ -82,8 +87,8 @@ export const deleteNote = async (id: string): Promise<Note> => {
 
 
 
-    const response = await axios.delete<Note>(
-        `https://notehub-public.goit.study/api/notes/${id}`,
+    const response = await nextServer.delete<Note>(
+        `/notes/${id}`,
          config
     );
 
@@ -97,9 +102,64 @@ export const fetchNoteById = async (id: string): Promise<Note> => {
             Authorization: `Bearer ${myKey}`
         },
     }
-  const response = await axios.get<Note>(
-        `https://notehub-public.goit.study/api/notes/${id}`,
+  const response = await nextServer.get<Note>(
+        `/notes/${id}`,
          config
     )
     return response.data;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//new sign up
+
+export type RegisterRequest = {
+  email: string;
+  password: string;
+};
+
+export type User = {
+password: string;
+  email: string;
+};
+
+export const register = async (data: RegisterRequest) => {
+  const res = await nextServer.post<User>('/auth/register', data);
+  return res.data;
+};
+
+
+
+
+// login-signin
+
+export type LoginRequest = {
+  email: string;
+  password: string;
+};
+
+export const login = async (data: LoginRequest) => {
+  const res = await nextServer.post<User>('/auth/login', data);
+  return res.data;
+};
