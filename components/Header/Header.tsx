@@ -1,7 +1,8 @@
 
 import css from './Header.module.css';
 import Link from 'next/link';
-import TagsMenu from "../TagsMenu/TagsMenu"
+import TagsMenu from "../TagsMenu/TagsMenu";
+import AuthNavigation from "../AuthNavigation/AuthNavigation"
 
 
 const Header = () => {
@@ -17,23 +18,9 @@ const Header = () => {
       <li>
        <TagsMenu/>
         </li>
+    
+<AuthNavigation /> 
         
-
-
-
-
-          {/* new */}
-
-
-         <li>
-            <Link href="/sign-in">Login</Link>
-          </li>
-          <li>
-            <Link href="/sign-up">Register</Link>
-        </li>
-        
-
-
 
 
     </ul>
