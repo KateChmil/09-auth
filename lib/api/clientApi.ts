@@ -1,12 +1,10 @@
-import axios from "axios";
-import type { Note, NoteTag } from "../types/note";
+
+import { nextServer } from './api';
+import type { Note, NoteTag } from "../../types/note";
+import { User } from "../../types/user";
 
 const myKey = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
 
-const nextServer = axios.create({
-  baseURL: 'http://localhost:3000/api',
-  withCredentials: true, // дозволяє axios працювати з cookie
-});
 
 
 export interface FetchNotesParams {
@@ -54,6 +52,14 @@ export const fetchNotes = async ({ search, page = 1, perPage=12, tag}:FetchNotes
      };
         
 }
+
+
+
+
+
+
+
+
 
 export const createNote = async (note: {
     title: string;
@@ -139,10 +145,6 @@ export type RegisterRequest = {
   password: string;
 };
 
-export type User = {
-password: string;
-  email: string;
-};
 
 export const register = async (data: RegisterRequest) => {
   const res = await nextServer.post<User>('/auth/register', data);

@@ -1,23 +1,41 @@
-const HomePage = () => {
+// app/(private routes)/profile/page.tsx
+
+import Link from 'next/link';
+import { getServerMe } from '@/lib/api/serverApi';
+import css from "./ProfilePage.module.css";
+
+const Profile = async () => {
+  const user = await getServerMe();
+
   return (
-    <main>
-  <div>
-    <h1 >Profile</h1>
-    <p>
-      NoteHub is a simple and efficient application designed for managing
-      personal notes. It helps keep your thoughts organized and accessible
-      in one place, whether you are at home or on the go.
-    </p>
-    <p >
-      The app provides a clean interface for writing, editing, and browsing
-      notes. With support for keyword search and structured organization,
-      NoteHub offers a streamlined experience for anyone who values clarity
-      and productivity.
-    </p>
+      <main className={css.mainContent}>
+  
+  <div className={css.profileCard}>
+      <div className={css.header}>
+	     <h1 className={css.formTitle}>Profile Page</h1>
+          <Link href="/profile/edit" className={css.editProfileButton}>Edit profile</Link>
+	   </div>
+     <div className={css.avatarWrapper}>
+      <img
+        src="Avatar"
+        alt="User Avatar"
+        width={120}
+        height={120}
+        className={css.avatar}
+      />
+    </div>
+    <div className={css.profileInfo}>
+      <p>
+        Username: your_username
+      </p>
+      <p>
+        Email: {user.email}
+      </p>
+    </div>
   </div>
 </main>
 
   );
+};
 
-}
-export default HomePage;
+export default Profile;
