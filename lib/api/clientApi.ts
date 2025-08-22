@@ -3,8 +3,6 @@ import { nextServer } from './api';
 import type { Note, NoteTag } from "../../types/note";
 import { User } from "../../types/user";
 
-const myKey = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
-
 
 
 export interface FetchNotesParams {
@@ -30,11 +28,9 @@ export const fetchNotes = async ({ search, page = 1, perPage=12, tag}:FetchNotes
             page,
             perPage,
          ...(search && { search }), 
-        ...(tag && tag !== "All" ? { tag } : {})
+        ...(tag && tag !== "All" ? { tag }:{})
     },
-        headers: {
-            Authorization: `Bearer ${myKey}`
-        },
+      
     }
     const response = await nextServer.get<FetchNotesResponse>(
         '/notes',
@@ -43,13 +39,7 @@ export const fetchNotes = async ({ search, page = 1, perPage=12, tag}:FetchNotes
 
    
 
-    return {
-        page,
-        perPage,
-        notes: response.data.notes,
-        totalPages: response.data.totalPages,
-        
-     };
+  return response.data;
         
 }
 
@@ -66,18 +56,12 @@ export const createNote = async (note: {
     content: string;
     tag: NoteTag;
 }): Promise<Note> => {
- const config = {
-        headers: {
-            Authorization: `Bearer ${myKey}`
-        },
-    }
-
 
 
     const response = await nextServer.post<Note>(
         '/notes',
         note,
-         config
+  
     );
 
     return response.data;
@@ -85,17 +69,10 @@ export const createNote = async (note: {
 
 
 export const deleteNote = async (id: string): Promise<Note> => {
- const config = {
-        headers: {
-            Authorization: `Bearer ${myKey}`
-        },
-    }
-
-
 
     const response = await nextServer.delete<Note>(
         `/notes/${id}`,
-         config
+    
     );
 
     return response.data;
@@ -103,14 +80,9 @@ export const deleteNote = async (id: string): Promise<Note> => {
 
 
 export const fetchNoteById = async (id: string): Promise<Note> => {
-     const config = {
-        headers: {
-            Authorization: `Bearer ${myKey}`
-        },
-    }
+    
   const response = await nextServer.get<Note>(
         `/notes/${id}`,
-         config
     )
     return response.data;
 }
