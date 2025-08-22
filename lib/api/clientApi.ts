@@ -1,5 +1,5 @@
 
-import { nextServer } from './api';
+import nextServer from './api';
 import type { Note, NoteTag } from "../../types/note";
 import { User } from "../../types/user";
 
@@ -34,7 +34,7 @@ export const fetchNotes = async ({ search, page = 1, perPage=12, tag}:FetchNotes
     }
     const response = await nextServer.get<FetchNotesResponse>(
         '/notes',
-         config
+      config,
     );
 
    
@@ -86,15 +86,6 @@ export const fetchNoteById = async (id: string): Promise<Note> => {
     )
     return response.data;
 }
-
-
-
-
-
-
-
-
-
 
 
 
