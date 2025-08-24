@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: `Note: ${tag}`,
       description: `All ${tag} notes`,
-      url: `https://08-zustand-pied.vercel.app/notes/filter/${tag}`,
+      url: `https://09-auth-kappa-one.vercel.app/notes/filter/${tag}`,
       siteName: 'NoteHub',
       images: [
         {

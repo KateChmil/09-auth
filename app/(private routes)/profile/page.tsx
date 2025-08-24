@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Profile NoteHub",
     description: "User profile data",
-    url: "http://localhost:3000/",
+    url: "https://09-auth-kappa-one.vercel.app/",
     siteName: "NoteHub",
     images: [
       {
