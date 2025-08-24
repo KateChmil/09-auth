@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { updateMe } from "@/lib/api/clientApi";
 import css from "./EditProfilePage.module.css";
-import Image from "next/image";
 import { useAuthStore } from "@/lib/store/authStore";
 
 
