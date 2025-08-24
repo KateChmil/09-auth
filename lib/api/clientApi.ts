@@ -23,18 +23,19 @@ export interface FetchNotesResponse {
 }
 
 export const fetchNotes = async ({ search, page = 1, perPage=12, tag}:FetchNotesParams): Promise<FetchNotesResponse> => {
- const config = {
-        params: {
-            page,
-            perPage,
-         ...(search && { search }), 
-        ...(tag && tag !== "All" ? { tag }:{})
-    },
-      
-    }
+
+    
     const response = await nextServer.get<FetchNotesResponse>(
-        '/notes',
-      config,
+      '/notes',
+        {
+        params: {
+          page,
+          perPage,
+          ...(search && { search }),
+          ...(tag && tag !== "All" ? { tag } : {})
+        }
+      }
+  
     );
 
    
@@ -42,12 +43,6 @@ export const fetchNotes = async ({ search, page = 1, perPage=12, tag}:FetchNotes
   return response.data;
         
 }
-
-
-
-
-
-
 
 
 
@@ -145,6 +140,15 @@ export const checkSession = async () => {
 export const getMe = async () => {
   const { data } = await nextServer.get<User>('/users/me');
   return data;
+};
+
+export type UpdateUserRequest = {
+  username: string;
+};
+
+export const updateMe = async (username: UpdateUserRequest) => {
+  const response = await nextServer.patch<User>("/users/me", username);
+  return response.data;
 };
 
 

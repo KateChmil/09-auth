@@ -3,6 +3,29 @@
 import Link from 'next/link';
 import { getServerMe } from '@/lib/api/serverApi';
 import css from "./ProfilePage.module.css";
+import Image from "next/image";
+import type { Metadata } from "next";
+
+
+export const metadata: Metadata = {
+  title: "Profile NoteHub",
+  description: "User profile data",
+  openGraph: {
+    title: "Profile NoteHub",
+    description: "User profile data",
+    url: "http://localhost:3000/",
+    siteName: "NoteHub",
+    images: [
+      {
+        url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
+        width: 1200,
+        height: 630,
+        alt: "NoteHub",
+      },
+    ],
+    type: "article",
+  },
+};
 
 const Profile = async () => {
   const user = await getServerMe();
@@ -16,17 +39,17 @@ const Profile = async () => {
           <Link href="/profile/edit" className={css.editProfileButton}>Edit profile</Link>
 	   </div>
      <div className={css.avatarWrapper}>
-      <img
-        src="Avatar"
-        alt="User Avatar"
-        width={120}
-        height={120}
-        className={css.avatar}
-      />
+       <Image
+            src={user.avatar}
+            alt="User Avatar"
+            width={120}
+            height={120}
+            className={css.avatar}
+          />
     </div>
     <div className={css.profileInfo}>
       <p>
-        Username: your_username
+        Username:{user.username}
       </p>
       <p>
         Email: {user.email}
