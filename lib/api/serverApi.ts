@@ -42,19 +42,6 @@ export const getServerMe = async (): Promise<User> => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 export interface FetchNotesParams{
    tag?: string;
     page?: number;

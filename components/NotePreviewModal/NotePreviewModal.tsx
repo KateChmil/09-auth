@@ -1,23 +1,26 @@
 
 'use client';
 import css from "./NotePreviewModal.module.css";
+import Modal from "../Modal/Modal";
 
 
 type Props = {
   children: React.ReactNode;
 };
 
-const Modal = ({ children }: Props) => {
+const NotePreviewModal = ({ children}: Props) => {
 
 
   return (
+   
     <div className = {css.backdrop}>
       <div className = {css.modal}>
         {children}
         
       </div>
-    </div>
+      </div>
+    
   );
 };
 
-export default Modal;
+export default NotePreviewModal;

@@ -5,13 +5,16 @@ import { useRouter } from "next/navigation";
 import { updateMe } from "@/lib/api/clientApi";
 import css from "./EditProfilePage.module.css";
 import { useAuthStore } from "@/lib/store/authStore";
-
+import Image from "next/image";
 
 
 
 
 const EditProfile = () => {
-    const user = useAuthStore((state) => state.user);
+  const user = useAuthStore((state) => state.user);
+  const setUser = useAuthStore((state) => state.setUser); 
+  
+
     const [username, setUsername] = useState("");
   const router = useRouter();
   
@@ -22,7 +25,8 @@ const EditProfile = () => {
 
   const handleSaveUser = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await updateMe({ username });
+    const updatedUser = await updateMe({ username });
+    setUser(updatedUser);
     router.push("/profile");
   };
   const handleBack = () => {
@@ -34,7 +38,13 @@ const EditProfile = () => {
       <div className={css.profileCard}>
         <h1 className={css.formTitle}>Edit Profile</h1>
 
-        
+          <Image
+          src="https://ac.goit.global/fullstack/react/default-avatar.jpg"
+          alt="User Avatar"
+          width={120}
+          height={120}
+          className={css.avatar}
+        />
               <form onSubmit={handleSaveUser}
                   className={css.profileInfo}>
           <div className={css.usernameWrapper}>
@@ -42,13 +52,13 @@ const EditProfile = () => {
             <input
               id="username"
               type="text"
-              value={username}
+              defaultValue={user?.username}
               className={css.input}
               onChange={handleChange}
             />
           </div>
 
-          <p>Email: </p>
+          <p>Email: {user?.email} </p>
 
           <div className={css.actions}>
             <button type="submit" className={css.saveButton}>
