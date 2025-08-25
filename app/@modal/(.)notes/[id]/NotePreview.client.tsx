@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from 'next/navigation';
 import { fetchNoteById } from "@/lib/api/clientApi";
-import NotePreviewModal from "@/components/NotePreviewModal/NotePreviewModal";
+import Modal from "@/components/NotePreviewModal/NotePreviewModal";
 
 const NotePreview = () => {
 
@@ -28,7 +28,7 @@ const NotePreview = () => {
     : `Created at: ${note.createdAt}`;
 
     return (
-      <NotePreviewModal>
+      <Modal onClose ={close}>
    <div className={css.container}>
   <div className={css.item}>
     <div className={css.header}>
@@ -40,7 +40,7 @@ const NotePreview = () => {
                 </div>
                 <button onClick={close} className={css.backBtn}>Close</button>
             </div>
-            </NotePreviewModal>
+            </Modal>
   );
 };
 
