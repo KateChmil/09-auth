@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
-import css from "./NotePreviewModal.module.css";
+import css from "./Modal.module.css";
 
 
 interface ModalProps{
